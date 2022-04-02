@@ -1,29 +1,24 @@
 package com.ecsimsw.server;
 
-import java.io.*;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
 
-    public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(8080)) {
-            System.out.println("Server is opened with port[" + serverSocket.getLocalPort() + "]");
-            Socket socket = serverSocket.accept();
+    public static void main(String[] args) throws IOException {
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
+        try (final ServerSocket serverSocket = new MyServerSocket()) {
+            final InetSocketAddress endpoint = new InetSocketAddress(InetAddress.getLocalHost(), 8080);
+            final int backlog = 50;
+            serverSocket.bind(endpoint, backlog);
 
-            String messageFromClient = in.readLine();
-            System.out.println("Message from client : " + messageFromClient);
-
-            out.write(messageFromClient);
-            System.out.println("Send message to client : " + messageFromClient);
-
-            out.flush();
-            in.close();
-            socket.close();
-        } catch (IOException e) {
+            try (final MySocket socket = new MySocket(serverSocket.accept())) {
+                final String messageFromClient = socket.receive();
+                socket.send(messageFromClient);
+            }
         }
     }
 }
