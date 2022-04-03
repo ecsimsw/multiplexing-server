@@ -1,4 +1,4 @@
-package com.ecsimsw.server.domain.server;
+package com.ecsimsw.server.server;
 
 public interface MessageHandler {
 

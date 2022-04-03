@@ -1,8 +1,8 @@
-package com.ecsimsw.server.domain.server;
+package com.ecsimsw.server.server;
 
-import com.ecsimsw.server.domain.http.HttpMessageHandler;
-import com.ecsimsw.server.domain.server.socket.MySocket;
-import com.ecsimsw.server.domain.server.socket.MyServerSocket;
+import com.ecsimsw.server.server.http.HttpMessageHandler;
+import com.ecsimsw.server.server.socket.MySocket;
+import com.ecsimsw.server.server.socket.MyServerSocket;
 
 import java.io.Closeable;
 import java.io.IOException;

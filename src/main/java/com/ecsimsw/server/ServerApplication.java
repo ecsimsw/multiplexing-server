@@ -1,6 +1,6 @@
 package com.ecsimsw.server;
 
-import com.ecsimsw.server.domain.server.WebServer;
+import com.ecsimsw.server.server.WebServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -1,4 +1,4 @@
-package com.ecsimsw.server.domain.server.socket;
+package com.ecsimsw.server.server.socket;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,21 +18,21 @@ public class MySocket extends Socket implements Closeable {
     }
 
     public String receive() throws IOException {
-        final List<String> lines = new ArrayList<>();
-
-        String tempLine;
-        while (!(tempLine = in.readLine()).equals("")) {
-            lines.add(tempLine);
-        }
-
-        final String message = String.join("\n", lines);
+        final String message = readMessage();
         System.out.println("[RECV       ] : Message from client : " + message);
         return message;
     }
 
-    public void send(String message) throws IOException {
-        final BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+    private String readMessage() throws IOException {
+        final List<String> lines = new ArrayList<>();
+        String tempLine;
+        while (!(tempLine = in.readLine()).equals("")) {
+            lines.add(tempLine);
+        }
+        return String.join("\n", lines);
+    }
 
+    public void send(String message) throws IOException {
         out.write(message);
         out.flush();
         System.out.println("[SEND       ] : Send message to client : \n" + message);

@@ -1,6 +1,6 @@
-package com.ecsimsw.server.domain.http;
+package com.ecsimsw.server.server.http;
 
-import com.ecsimsw.server.domain.server.MessageHandler;
+import com.ecsimsw.server.server.MessageHandler;
 
 public class HttpMessageHandler implements MessageHandler {
 
