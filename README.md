@@ -1,9 +1,14 @@
 ### My socket server
-Make small web server with socket API
+Make small web server with socket API  
 
-- Handle basic http request and send requested files or do job
-- support multiple concurrent requests
-- make dynamic response with programming interface
+- Handle basic http request and send requested files or do job   
+   - Socket API
+   - Servlet / Default servlet / Servlet Container
+- Support multiple concurrent requests 
+   - Multi-process socket or Multi-thread socket   
+   - Nonblocking server socket accept   
+- Make dynamic response with programming interface   
+   - In-Memory db / count user
 
 ### socket
 - socket() : create socket
