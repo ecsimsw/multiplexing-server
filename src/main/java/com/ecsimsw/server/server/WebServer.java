@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 
-public class WebServer implements Closeable {
+public class  WebServer implements Closeable {
 
     private final ServerSocket serverSocket = new MyServerSocket();
     private final MessageHandler messageHandler = new HttpMessageHandler();
