@@ -18,24 +18,21 @@ public class MySocket extends Socket implements Closeable {
     }
 
     public String receive() throws IOException {
-        final String message = readMessage();
-        System.out.println("[RECV       ] : Message from client : " + message);
-        return message;
-    }
-
-    private String readMessage() throws IOException {
         final List<String> lines = new ArrayList<>();
         String tempLine;
         while (!(tempLine = in.readLine()).equals("")) {
             lines.add(tempLine);
         }
-        return String.join("\n", lines);
+        final String message = String.join("\n", lines);
+
+        System.out.println("[RECEIVE] : \n" + message);
+        return message;
     }
 
     public void send(String message) throws IOException {
         out.write(message);
         out.flush();
-        System.out.println("[SEND       ] : Send message to client : \n" + message);
+        System.out.println("[SEND] : \n" + message);
     }
 
     @Override
@@ -43,6 +40,6 @@ public class MySocket extends Socket implements Closeable {
         socket.close();
         in.close();
         out.close();
-        System.out.println("[CLOSE      ] : close socket");
+        System.out.println("[CLOSE] : close socket");
     }
 }

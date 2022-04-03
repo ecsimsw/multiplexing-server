@@ -12,23 +12,19 @@ public class HttpResponse {
     public void ok(String httpVersion, String body) {
         this.httpVersion = httpVersion;
         this.statusCode = StatusCode.OK;
-        this.body = "<html>\n"
-                + "<head><title>404 Not Found</title></head>\n"
-                + "<body bgcolor=\"white\">\n"
-                + "<center><h1>Hello world</h1></center>\n"
-                + "</body>\n"
-                + "</html>";
+        this.body = body;
     }
 
     public void notFound(String httpVersion, String body) {
         this.httpVersion = httpVersion;
         this.statusCode = StatusCode.NOT_FOUND;
-        this.body = "<html>\n"
-                + "<head><title>404 Not Found</title></head>\n"
-                + "<body bgcolor=\"white\">\n"
-                + "<center><h1>404 Not Found</h1></center>\n"
-                + "</body>\n"
-                + "</html>";
+        this.body = body;
+    }
+
+    public void badRequest(String httpVersion, String body) {
+        this.httpVersion = httpVersion;
+        this.statusCode = StatusCode.BAD_REQUEST;
+        this.body = body;
     }
 
     public String asString() {

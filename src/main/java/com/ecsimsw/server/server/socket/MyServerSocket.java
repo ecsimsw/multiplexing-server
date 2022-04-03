@@ -14,19 +14,19 @@ public class MyServerSocket extends java.net.ServerSocket {
     @Override
     public void bind(SocketAddress endpoint, int backlog) throws IOException {
         super.bind(endpoint, backlog);
-        System.out.println("[BIND/LISTEN] : bind " + endpoint);
+        System.out.println("[BIND/LISTEN] : " + endpoint);
     }
 
     @Override
     public Socket accept() throws IOException {
         final Socket accepted = super.accept();
-        System.out.println("[ACCEPT     ] : " + accepted.getLocalAddress() + ":" + accepted.getPort());
+        System.out.println("[ACCEPT] " + accepted.getLocalAddress() + ":" + accepted.getPort());
         return accepted;
     }
 
     @Override
     public void close() throws IOException {
         super.close();
-        System.out.println("[CLOSE      ] : close server socket");
+        System.out.println("[SERVER-CLOSE] : close server socket");
     }
 }
