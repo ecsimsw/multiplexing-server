@@ -1,12 +1,9 @@
-package com.ecsimsw.server;
+package com.ecsimsw.server.domain;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySocket extends Socket implements Closeable {
 
@@ -22,7 +19,14 @@ public class MySocket extends Socket implements Closeable {
     }
 
     public String receive() throws IOException {
-        final String message = in.readLine();
+        final List<String> lines = new ArrayList<>();
+
+        String tempLine;
+        while (!(tempLine = in.readLine()).equals("")) {
+            lines.add(tempLine);
+        }
+
+        final String message = String.join("\n", lines);
         System.out.println("[RECV       ] : Message from client : " + message);
         return message;
     }
@@ -30,12 +34,14 @@ public class MySocket extends Socket implements Closeable {
     public void send(String message) throws IOException {
         out.write(message);
         out.flush();
-        System.out.println("[SEND       ] : Send message to client : " + message);
+        System.out.println("[SEND       ] : Send message to client : \n" + message);
     }
 
     @Override
     public void close() throws IOException {
         socket.close();
+        in.close();
+        out.close();
         System.out.println("[CLOSE      ] : close socket");
     }
 }
