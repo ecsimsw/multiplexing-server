@@ -1,12 +1,12 @@
-package com.ecsimsw.server.domain;
+package com.ecsimsw.server.domain.server.socket;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-public class ServerSocket extends java.net.ServerSocket {
+public class MyServerSocket extends java.net.ServerSocket {
 
-    public ServerSocket() throws IOException {
+    public MyServerSocket() throws IOException {
         super();
         System.out.println("[SOCKET-INIT] : init server socket");
     }

@@ -1,4 +1,4 @@
-package com.ecsimsw.server.domain;
+package com.ecsimsw.server.domain.server.socket;
 
 import java.io.*;
 import java.net.Socket;
@@ -8,7 +8,6 @@ import java.util.List;
 public class MySocket extends Socket implements Closeable {
 
     private final Socket socket;
-
     private final BufferedReader in;
     private final BufferedWriter out;
 
@@ -32,6 +31,8 @@ public class MySocket extends Socket implements Closeable {
     }
 
     public void send(String message) throws IOException {
+        final BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
         out.write(message);
         out.flush();
         System.out.println("[SEND       ] : Send message to client : \n" + message);
