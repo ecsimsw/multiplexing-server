@@ -12,27 +12,30 @@ public class MySocket extends Socket implements Closeable {
 
     private final Socket socket;
 
-    public MySocket(Socket socket) {
+    private final BufferedReader in;
+    private final BufferedWriter out;
+
+    public MySocket(Socket socket) throws IOException {
         this.socket = socket;
+        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
     }
 
     public String receive() throws IOException {
-        try(BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-            final String message = in.readLine();
-            System.out.println("Message from client : " + message);
-            return message;
-        }
+        final String message = in.readLine();
+        System.out.println("[RECV       ] : Message from client : " + message);
+        return message;
     }
 
     public void send(String message) throws IOException {
-        try(BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));) {
-            out.write(message);
-            System.out.println("Send message to client : " + message);
-        }
+        out.write(message);
+        out.flush();
+        System.out.println("[SEND       ] : Send message to client : " + message);
     }
 
     @Override
     public void close() throws IOException {
         socket.close();
+        System.out.println("[CLOSE      ] : close socket");
     }
 }

@@ -9,25 +9,25 @@ public class MyServerSocket extends ServerSocket {
 
     public MyServerSocket() throws IOException {
         super();
-        System.out.println("[SOCKET-INIT]");
+        System.out.println("[SOCKET-INIT] : init server socket");
     }
 
     @Override
     public void bind(SocketAddress endpoint, int backlog) throws IOException {
         super.bind(endpoint, backlog);
-        System.out.println("[BIND/LISTEN] : " + endpoint);
+        System.out.println("[BIND/LISTEN] : bind " + endpoint);
     }
 
     @Override
     public Socket accept() throws IOException {
         final Socket accepted = super.accept();
-        System.out.println("[ACCEPT] : " + accepted.getLocalAddress() + ":" + accepted.getPort());
+        System.out.println("[ACCEPT     ] : " + accepted.getLocalAddress() + ":" + accepted.getPort());
         return accepted;
     }
 
     @Override
     public void close() throws IOException {
         super.close();
-        System.out.println("[CLOSE]");
+        System.out.println("[CLOSE      ] : close server socket");
     }
 }
