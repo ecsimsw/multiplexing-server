@@ -1,4 +1,4 @@
-package com.ecsimsw.server.server.http;
+package com.ecsimsw.server.server.http.request;
 
 import java.util.Arrays;
 

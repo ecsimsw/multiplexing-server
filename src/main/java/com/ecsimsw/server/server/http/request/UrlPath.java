@@ -1,4 +1,4 @@
-package com.ecsimsw.server.server.http;
+package com.ecsimsw.server.server.http.request;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ public class UrlPath {
     private final String path;
     private final Map<String, String> queryParams;
 
-    public UrlPath(String path, Map<String, String> queryParams) {
+    private UrlPath(String path, Map<String, String> queryParams) {
         this.path = path;
         this.queryParams = queryParams;
     }
@@ -32,7 +32,6 @@ public class UrlPath {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Invalid format of urlPath : "+ urlPath);
         }
-
     }
 
     public String getPath() {

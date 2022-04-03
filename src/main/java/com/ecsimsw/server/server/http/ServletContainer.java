@@ -1,6 +1,7 @@
-package com.ecsimsw.server.server.http.servlet;
+package com.ecsimsw.server.server.http;
 
-import com.ecsimsw.server.server.http.HttpRequest;
+import com.ecsimsw.server.server.http.request.HttpRequest;
+import com.ecsimsw.server.server.http.servlet.Servlet;
 import java.util.HashMap;
 import java.util.Map;
 
