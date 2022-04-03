@@ -1,5 +1,11 @@
-### server socket
+### My socket server
+Make small web server with socket API
 
+- Handle basic http request and send requested files or do job
+- support multiple concurrent requests
+- make dynamic response with programming interface
+
+### socket
 - socket() : create socket
 - bind()   : 지정된 포트 번호를 사용할 것이라는 것을 운영체제에 요청, 이미 사용 중이라면 에러 리턴
            : backlog로 연결 대기열이 증가할 수 있는 최대 길이를 지정
