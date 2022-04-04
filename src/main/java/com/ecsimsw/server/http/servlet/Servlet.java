@@ -1,8 +1,8 @@
-package com.ecsimsw.server.server.http.servlet;
+package com.ecsimsw.server.http.servlet;
 
-import com.ecsimsw.server.server.http.request.HttpMethod;
-import com.ecsimsw.server.server.http.request.HttpRequest;
-import com.ecsimsw.server.server.http.response.HttpResponse;
+import com.ecsimsw.server.http.request.HttpMethod;
+import com.ecsimsw.server.http.request.HttpRequest;
+import com.ecsimsw.server.http.response.HttpResponse;
 
 public abstract class Servlet {
 

@@ -1,4 +1,4 @@
-package com.ecsimsw.server.server.socket;
+package com.ecsimsw.server.socket;
 
 import java.io.IOException;
 import java.net.Socket;

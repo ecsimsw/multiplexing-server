@@ -1,13 +1,13 @@
-package com.ecsimsw.server.server.http;
+package com.ecsimsw.server.http;
 
-import com.ecsimsw.server.server.http.request.HttpRequest;
-import com.ecsimsw.server.server.http.response.HttpResponse;
-import com.ecsimsw.server.server.http.servlet.DefaultServlet;
-import com.ecsimsw.server.server.http.servlet.IndexServlet;
-import com.ecsimsw.server.server.http.servlet.Servlet;
-import com.ecsimsw.server.server.http.exception.BadRequestException;
-import com.ecsimsw.server.server.http.exception.NotFoundException;
-import com.ecsimsw.server.server.http.servlet.UserCountServlet;
+import com.ecsimsw.server.http.exception.BadRequestException;
+import com.ecsimsw.server.http.request.HttpRequest;
+import com.ecsimsw.server.http.response.HttpResponse;
+import com.ecsimsw.server.http.servlet.DefaultServlet;
+import com.ecsimsw.server.http.servlet.IndexServlet;
+import com.ecsimsw.server.http.servlet.UserCountServlet;
+import com.ecsimsw.server.http.servlet.Servlet;
+import com.ecsimsw.server.http.exception.NotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

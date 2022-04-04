@@ -1,8 +1,8 @@
-package com.ecsimsw.server.server.http;
+package com.ecsimsw.server.http;
 
-import com.ecsimsw.server.server.MessageHandler;
-import com.ecsimsw.server.server.http.request.HttpRequest;
-import com.ecsimsw.server.server.http.response.HttpResponse;
+import com.ecsimsw.server.MessageHandler;
+import com.ecsimsw.server.http.request.HttpRequest;
+import com.ecsimsw.server.http.response.HttpResponse;
 
 public class HttpMessageHandler implements MessageHandler {
 

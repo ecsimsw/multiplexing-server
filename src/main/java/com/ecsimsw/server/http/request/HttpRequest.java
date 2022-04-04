@@ -1,4 +1,4 @@
-package com.ecsimsw.server.server.http.request;
+package com.ecsimsw.server.http.request;
 
 public class HttpRequest {
 

@@ -1,4 +1,4 @@
-package com.ecsimsw.server.server.http.response;
+package com.ecsimsw.server.http.response;
 
 public class HttpResponse {
 
@@ -25,6 +25,12 @@ public class HttpResponse {
         this.httpVersion = httpVersion;
         this.statusCode = StatusCode.BAD_REQUEST;
         this.body = body;
+    }
+
+    public void noContent(String httpVersion) {
+        this.httpVersion = httpVersion;
+        this.statusCode = StatusCode.NO_CONTENT;
+        this.body = "";
     }
 
     public String asString() {
