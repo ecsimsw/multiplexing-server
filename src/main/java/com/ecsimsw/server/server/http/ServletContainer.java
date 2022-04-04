@@ -5,8 +5,10 @@ import com.ecsimsw.server.server.http.response.HttpResponse;
 import com.ecsimsw.server.server.http.servlet.DefaultServlet;
 import com.ecsimsw.server.server.http.servlet.IndexServlet;
 import com.ecsimsw.server.server.http.servlet.Servlet;
-import com.ecsimsw.server.server.http.servlet.exception.BadRequestException;
-import com.ecsimsw.server.server.http.servlet.exception.NotFoundException;
+import com.ecsimsw.server.server.http.exception.BadRequestException;
+import com.ecsimsw.server.server.http.exception.NotFoundException;
+import com.ecsimsw.server.server.http.servlet.UserCountServlet;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,7 @@ public class ServletContainer {
 
     {
         container.put("/", new IndexServlet());
+        container.put("/userCount", new UserCountServlet());
     }
 
     public void service(HttpRequest httpRequest, HttpResponse httpResponse) {

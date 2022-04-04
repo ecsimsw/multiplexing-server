@@ -2,8 +2,10 @@ package com.ecsimsw.server.server.http.servlet;
 
 import com.ecsimsw.server.server.http.request.HttpRequest;
 import com.ecsimsw.server.server.http.response.HttpResponse;
-import com.ecsimsw.server.server.http.servlet.exception.InternalServerException;
-import com.ecsimsw.server.server.http.servlet.exception.NotFoundException;
+import com.ecsimsw.server.server.http.exception.InternalServerException;
+import com.ecsimsw.server.server.http.exception.NotFoundException;
+import com.ecsimsw.server.server.http.response.ResponseFile;
+
 import java.io.IOException;
 
 public class DefaultServlet extends Servlet {

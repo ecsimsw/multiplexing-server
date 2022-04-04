@@ -1,4 +1,4 @@
-package com.ecsimsw.server.server.http.servlet;
+package com.ecsimsw.server.server.http.response;
 
 import java.io.BufferedReader;
 import java.io.IOException;

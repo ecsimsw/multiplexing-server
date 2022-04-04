@@ -1,4 +1,4 @@
-package com.ecsimsw.server.server.http.servlet.exception;
+package com.ecsimsw.server.server.http.exception;
 
 public class BadRequestException extends HttpException {
 
