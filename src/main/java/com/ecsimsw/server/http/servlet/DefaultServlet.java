@@ -1,12 +1,15 @@
 package com.ecsimsw.server.http.servlet;
 
-import com.ecsimsw.server.http.request.HttpRequest;
-import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.http.exception.InternalServerException;
 import com.ecsimsw.server.http.exception.NotFoundException;
+import com.ecsimsw.server.http.request.HttpRequest;
+import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.http.response.ResponseFile;
 
 import java.io.IOException;
+
+import static com.ecsimsw.server.ServerConfig.BAD_REQUEST_FILE_PATH;
+import static com.ecsimsw.server.ServerConfig.NOT_FOUND_FILE_PATH;
 
 public class DefaultServlet extends Servlet {
 
@@ -25,7 +28,7 @@ public class DefaultServlet extends Servlet {
     public void badRequest(HttpRequest httpRequest, HttpResponse httpResponse) {
         try {
             final String httpVersion = httpRequest.getHttpVersion();
-            final ResponseFile file = ResponseFile.of("/bad_request.html");
+            final ResponseFile file = ResponseFile.of(BAD_REQUEST_FILE_PATH);
             httpResponse.badRequest(httpVersion, file.asString());
         } catch (IOException e) {
             throw new InternalServerException("no file");
@@ -35,7 +38,7 @@ public class DefaultServlet extends Servlet {
     public void notFoundException(HttpRequest httpRequest, HttpResponse httpResponse) {
         try {
             final String httpVersion = httpRequest.getHttpVersion();
-            final ResponseFile file = ResponseFile.of("/not_found.html");
+            final ResponseFile file = ResponseFile.of(NOT_FOUND_FILE_PATH);
             httpResponse.notFound(httpVersion, file.asString());
         } catch (IOException e) {
             throw new InternalServerException("no file");

@@ -1,18 +1,18 @@
 package com.ecsimsw;
 
+import com.ecsimsw.server.ServerConfig;
 import com.ecsimsw.server.WebServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import static com.ecsimsw.server.ServerConfig.*;
+
 public class ServerApplication {
 
     public static void main(String[] args) throws IOException {
-        final int port = 8080;
-        final InetSocketAddress socketAddress = new InetSocketAddress("localhost", port);
-        final int backlog = 50;
-
-        try (WebServer webServer = new WebServer(socketAddress, backlog)) {
+        final InetSocketAddress endpoint = new InetSocketAddress(HOST_NAME, PORT);
+        try (WebServer webServer = new WebServer(endpoint, BACK_LOG)) {
             webServer.run();
         }
     }

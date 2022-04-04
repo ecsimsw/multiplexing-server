@@ -1,20 +1,20 @@
 package com.ecsimsw.server.http.servlet;
 
-import com.ecsimsw.database.InmemoryDB;
+import com.ecsimsw.server.database.InmemoryDB;
 import com.ecsimsw.server.http.exception.BadRequestException;
+import com.ecsimsw.server.http.exception.NotFoundException;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.http.response.ResponseFile;
-import com.ecsimsw.server.http.exception.NotFoundException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
-public class UserCountServlet extends Servlet {
+import static com.ecsimsw.server.ServerConfig.USER_COUNT_FILE_PATH;
 
-    private static final String FILE_PATH = "/user_count.html";
+public class UserCountServlet extends Servlet {
 
     @Override
     public void doGet(HttpRequest request, HttpResponse httpResponse) {
@@ -46,7 +46,7 @@ public class UserCountServlet extends Servlet {
     }
 
     private String viewResolve(int count) throws IOException {
-        final ResponseFile file = ResponseFile.of(FILE_PATH);
+        final ResponseFile file = ResponseFile.of(USER_COUNT_FILE_PATH);
         final Document parse = Jsoup.parse(file.asString());
         final Element number = parse.getElementById("number");
         number.text(String.valueOf(count));

@@ -6,7 +6,7 @@ import com.ecsimsw.server.http.response.HttpResponse;
 
 public class HttpMessageHandler implements MessageHandler {
 
-    private final ServletContainer servletContainer = new ServletContainer();
+    private final ServletContainer servletContainer = ServletContainer.init();
 
     @Override
     public String handle(String message) {
