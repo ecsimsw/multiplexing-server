@@ -6,31 +6,28 @@ public class HttpResponse {
     private StatusCode statusCode;
     private String body;
 
-    public HttpResponse() {
+    public HttpResponse(String httpVersion) {
+        this.httpVersion = httpVersion;
+        this.body = "";
     }
 
-    public void ok(String httpVersion, String body) {
-        this.httpVersion = httpVersion;
+    public void ok(String body) {
         this.statusCode = StatusCode.OK;
         this.body = body;
     }
 
-    public void notFound(String httpVersion, String body) {
-        this.httpVersion = httpVersion;
+    public void notFound(String body) {
         this.statusCode = StatusCode.NOT_FOUND;
         this.body = body;
     }
 
-    public void badRequest(String httpVersion, String body) {
-        this.httpVersion = httpVersion;
+    public void badRequest(String body) {
         this.statusCode = StatusCode.BAD_REQUEST;
         this.body = body;
     }
 
-    public void noContent(String httpVersion) {
-        this.httpVersion = httpVersion;
+    public void noContent() {
         this.statusCode = StatusCode.NO_CONTENT;
-        this.body = "";
     }
 
     public String asString() {

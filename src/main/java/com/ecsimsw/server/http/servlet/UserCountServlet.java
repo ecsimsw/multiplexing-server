@@ -12,29 +12,28 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
-import static com.ecsimsw.server.ServerConfig.USER_COUNT_FILE_PATH;
+import static com.ecsimsw.server.config.ServerConfig.USER_COUNT_FILE_PATH;
 
 public class UserCountServlet extends Servlet {
 
     @Override
-    public void doGet(HttpRequest request, HttpResponse httpResponse) {
+    public void doGet(HttpRequest httpRequest, HttpResponse httpResponse) {
         try {
-            InmemoryDB.up();
-            final int count = InmemoryDB.select();
-            final String resolvedFile = viewResolve(count);
-            httpResponse.ok(request.getHttpVersion(), resolvedFile);
+            final int number = InmemoryDB.select();
+            InmemoryDB.update(number+1);
+            httpResponse.ok(viewResolve(number));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new NotFoundException("no file");
+            throw new NotFoundException("No file");
         }
     }
 
     @Override
-    public void doPut(HttpRequest request, HttpResponse httpResponse) {
+    public void doPut(HttpRequest httpRequest, HttpResponse httpResponse) {
         try {
-            final int number = Integer.parseInt(request.getQueryValue("number"));
+            final int number = Integer.parseInt(httpRequest.getQueryValue("number"));
             InmemoryDB.update(number);
-            httpResponse.noContent(request.getHttpVersion());
+            httpResponse.noContent();
         } catch (NumberFormatException | NullPointerException e) {
             e.printStackTrace();
             throw new BadRequestException("Invalid request");
@@ -42,9 +41,9 @@ public class UserCountServlet extends Servlet {
     }
 
     @Override
-    public void doDelete(HttpRequest request, HttpResponse httpResponse) {
+    public void doDelete(HttpRequest httpRequest, HttpResponse httpResponse) {
         InmemoryDB.delete();
-        httpResponse.noContent(request.getHttpVersion());
+        httpResponse.noContent();
     }
 
     private String viewResolve(int count) throws IOException {

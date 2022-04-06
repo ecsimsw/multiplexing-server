@@ -9,37 +9,37 @@ public abstract class Servlet {
     protected Servlet() {
     }
 
-    public void doService(HttpRequest request, HttpResponse httpResponse) {
-        if(request.getMethod() == HttpMethod.GET) {
-            doGet(request, httpResponse);
+    public void doService(HttpRequest httpRequest, HttpResponse httpResponse) {
+        if(httpRequest.getMethod() == HttpMethod.GET) {
+            doGet(httpRequest, httpResponse);
         }
 
-        if(request.getMethod() == HttpMethod.POST) {
-            doPost(request, httpResponse);
+        if(httpRequest.getMethod() == HttpMethod.POST) {
+            doPost(httpRequest, httpResponse);
         }
 
-        if(request.getMethod() == HttpMethod.PUT) {
-            doPut(request, httpResponse);
+        if(httpRequest.getMethod() == HttpMethod.PUT) {
+            doPut(httpRequest, httpResponse);
         }
 
-        if(request.getMethod() == HttpMethod.DELETE) {
-            doDelete(request, httpResponse);
+        if(httpRequest.getMethod() == HttpMethod.DELETE) {
+            doDelete(httpRequest, httpResponse);
         }
     }
 
-    public void doGet(HttpRequest request, HttpResponse httpResponse) {
+    public void doGet(HttpRequest httpRequest, HttpResponse httpResponse) {
         throw new IllegalArgumentException("method not allowed");
     }
 
-    public void doPost(HttpRequest request, HttpResponse httpResponse) {
+    public void doPost(HttpRequest httpRequest, HttpResponse httpResponse) {
         throw new IllegalArgumentException("method not allowed");
     }
 
-    public void doPut(HttpRequest request, HttpResponse httpResponse) {
+    public void doPut(HttpRequest httpRequest, HttpResponse httpResponse) {
         throw new IllegalArgumentException("method not allowed");
     }
 
-    public void doDelete(HttpRequest request, HttpResponse httpResponse) {
+    public void doDelete(HttpRequest httpRequest, HttpResponse httpResponse) {
         throw new IllegalArgumentException("method not allowed");
     }
 }

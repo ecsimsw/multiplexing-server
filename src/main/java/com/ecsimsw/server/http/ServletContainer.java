@@ -1,13 +1,15 @@
 package com.ecsimsw.server.http;
 
-import com.ecsimsw.server.ServerConfig;
+import com.ecsimsw.server.config.ServerConfig;
 import com.ecsimsw.server.http.exception.BadRequestException;
 import com.ecsimsw.server.http.exception.NotFoundException;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.http.servlet.DefaultServlet;
 import com.ecsimsw.server.http.servlet.Servlet;
+import com.ecsimsw.server.socket.MySocket;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,21 +39,33 @@ public class ServletContainer {
         }
     }
 
-    public void service(HttpRequest httpRequest, HttpResponse httpResponse) {
-        try {
-            final Servlet servlet = findServlet(httpRequest);
-            servlet.doService(httpRequest, httpResponse);
-        } catch (BadRequestException badRequestException) {
-            DEFAULT_SERVLET.badRequest(httpRequest, httpResponse);
-        } catch (NotFoundException notFoundException) {
-            DEFAULT_SERVLET.notFoundException(httpRequest, httpResponse);
-        }
-    }
-
     private Servlet findServlet(HttpRequest httpRequest) {
         if (!container.containsKey(httpRequest.getPath())) {
             return DEFAULT_SERVLET;
         }
         return container.get(httpRequest.getPath());
+    }
+
+    private void service(HttpRequest request, HttpResponse response) {
+        try {
+            final Servlet servlet = findServlet(request);
+            servlet.doService(request, response);
+        } catch (BadRequestException badRequestException) {
+            DEFAULT_SERVLET.badRequest(response);
+        } catch (NotFoundException notFoundException) {
+            DEFAULT_SERVLET.notFoundException(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void execute(MySocket socket) throws IOException {
+        final HttpRequest httpRequest = new HttpRequest(socket.receive());
+        final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
+
+        service(httpRequest, httpResponse);
+
+        socket.send(httpResponse.asString());
+        socket.close();
     }
 }

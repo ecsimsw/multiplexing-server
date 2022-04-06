@@ -1,31 +1,31 @@
 package com.ecsimsw.server;
 
-import com.ecsimsw.server.http.HttpMessageHandler;
-import com.ecsimsw.server.socket.MySocket;
+import com.ecsimsw.server.http.ServletContainer;
 import com.ecsimsw.server.socket.MyServerSocket;
-
+import com.ecsimsw.server.socket.MySocket;
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 
-public class  WebServer implements Closeable {
+public class WebServer implements Closeable {
 
-    private final ServerSocket serverSocket = new MyServerSocket();
-    private final MessageHandler messageHandler = new HttpMessageHandler();
+    private final ServerSocket serverSocket;
+    private final ServletContainer servletContainer;
 
     public WebServer(InetSocketAddress endpoint, int backlog) throws IOException {
+        this.serverSocket = MyServerSocket.init();
         this.serverSocket.bind(endpoint, backlog);
+        this.servletContainer = ServletContainer.init();
     }
 
     public void run() {
         while (true) {
-            try (final MySocket socket = new MySocket(serverSocket.accept())) {
-                final String message = socket.receive();
-                final String response = messageHandler.handle(message);
-                socket.send(response);
+            try {
+                final MySocket socket = new MySocket(serverSocket.accept());
+                servletContainer.execute(socket);
             } catch (IOException e) {
-                System.out.println("Socket error : " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }

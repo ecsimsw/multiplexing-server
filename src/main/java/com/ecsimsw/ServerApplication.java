@@ -5,7 +5,7 @@ import com.ecsimsw.server.WebServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import static com.ecsimsw.server.ServerConfig.*;
+import static com.ecsimsw.server.config.ServerConfig.*;
 
 public class ServerApplication {
 
