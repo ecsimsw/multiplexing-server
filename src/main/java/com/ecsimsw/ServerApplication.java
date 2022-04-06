@@ -1,6 +1,5 @@
 package com.ecsimsw;
 
-import com.ecsimsw.server.ServerConfig;
 import com.ecsimsw.server.WebServer;
 
 import java.io.IOException;

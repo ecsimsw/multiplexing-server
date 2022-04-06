@@ -24,6 +24,7 @@ public class UserCountServlet extends Servlet {
             final String resolvedFile = viewResolve(count);
             httpResponse.ok(request.getHttpVersion(), resolvedFile);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new NotFoundException("no file");
         }
     }
@@ -35,6 +36,7 @@ public class UserCountServlet extends Servlet {
             InmemoryDB.update(number);
             httpResponse.noContent(request.getHttpVersion());
         } catch (NumberFormatException | NullPointerException e) {
+            e.printStackTrace();
             throw new BadRequestException("Invalid request");
         }
     }

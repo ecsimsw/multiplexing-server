@@ -32,6 +32,7 @@ public class ServletContainer {
             }
             return new ServletContainer(container);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("ERROR in load servlet container");
         }
     }
