@@ -10,6 +10,29 @@ Make small web server with socket API
 - Make dynamic response with programming interface   
    - In-Memory db / count user
 
+### Testing / K6
+[Installation](https://k6.io/docs/getting-started/installation/)
+[Running](https://k6.io/docs/getting-started/running-k6/)
+
+```
+docker pull grafana/k6
+docker run --rm -i grafana/k6 run --vus 10 --duration 30s - <script.js
+```
+
+Experimental factors : The number of thread, Backlog, Blocking/Non-blocking IO, Execution time to response
+
+### Step1
+Make simple web server with socket API
+
+### Step2
+Make server multi-thread to handle concurrent request
+
+### Step3
+Testing and make thread pool
+
+### Step4
+Feature nonblocking socket IO and compare with blocking/multi-thread server
+
 ### socket
 - socket() : create socket
 - bind()   : 지정된 포트 번호를 사용할 것이라는 것을 운영체제에 요청, 이미 사용 중이라면 에러 리턴
@@ -20,7 +43,3 @@ Make small web server with socket API
            : 이때 클라이언트 소켓과 통신할 새로운 소켓 인스턴스 반환
 - send() / recv()
 - close()
-
-
-#### backlog
-backlog는 연결이 대기할 수 있는 큐의 갯수이다. 만약 backlog에 연결이 모두 찬 상태에서 새로운 연결을 시도한다면, 클라이언트는 ECONNREFUSED 에러를 받게될 것이다. 만약 재전송을 지원하는 프로토콜을 사용한다면 에러를 무시하고 성공할 때까지 재시도를 하게 된다.
