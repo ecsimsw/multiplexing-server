@@ -39,7 +39,7 @@ public class ServletContainer {
         }
     }
 
-    public void execute(MySocket socket) {
+    public void execute(MySocket socket) throws IOException {
         final RunnableHandler handler = new RunnableHandler(defaultServlet, container, socket);
         final Thread handleThread = new Thread(handler);
         handleThread.start();
@@ -66,10 +66,9 @@ class RunnableHandler implements Runnable {
 
             service(httpRequest, httpResponse);
 
-            Thread.sleep(10000L);
             socket.send(httpResponse.asString());
             socket.close();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

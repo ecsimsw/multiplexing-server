@@ -15,7 +15,7 @@ public class ServerConfig {
 
     public static final String HOST_NAME = "localhost";
     public static final int PORT = 8080;
-    public static final int BACK_LOG = 1;
+    public static final int BACK_LOG = 50;
 
     public static final Map<String, Class<?>> servletMappings = new HashMap<>();
 
