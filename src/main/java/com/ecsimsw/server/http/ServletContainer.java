@@ -15,12 +15,12 @@ import java.util.Map;
 
 public class ServletContainer {
 
-    private static final DefaultServlet DEFAULT_SERVLET = new DefaultServlet();
-
+    private final DefaultServlet defaultServlet;
     private final Map<String, Servlet> container;
 
     private ServletContainer(Map<String, Servlet> container) {
         this.container = container;
+        this.defaultServlet = new DefaultServlet();
     }
 
     public static ServletContainer init() {
@@ -39,11 +39,46 @@ public class ServletContainer {
         }
     }
 
-    private Servlet findServlet(HttpRequest httpRequest) {
-        if (!container.containsKey(httpRequest.getPath())) {
-            return DEFAULT_SERVLET;
+    public void execute(MySocket socket) {
+        final RunnableHandler handler = new RunnableHandler(defaultServlet, container, socket);
+        final Thread handleThread = new Thread(handler);
+        handleThread.start();
+    }
+}
+
+class RunnableHandler implements Runnable {
+
+    private final DefaultServlet defaultServlet;
+    private final Map<String, Servlet> container;
+    private final MySocket socket;
+
+    public RunnableHandler(DefaultServlet defaultServlet, Map<String, Servlet> container, MySocket socket) {
+        this.defaultServlet = defaultServlet;
+        this.container = container;
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        try {
+            final HttpRequest httpRequest = new HttpRequest(socket.receive());
+            final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
+
+            service(httpRequest, httpResponse);
+
+            Thread.sleep(10000L);
+            socket.send(httpResponse.asString());
+            socket.close();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
-        return container.get(httpRequest.getPath());
+    }
+
+    private Servlet findServlet(HttpRequest httpRequest) {
+        if (container.containsKey(httpRequest.getPath())) {
+            return container.get(httpRequest.getPath());
+        }
+        return defaultServlet;
     }
 
     private void service(HttpRequest request, HttpResponse response) {
@@ -51,21 +86,11 @@ public class ServletContainer {
             final Servlet servlet = findServlet(request);
             servlet.doService(request, response);
         } catch (BadRequestException badRequestException) {
-            DEFAULT_SERVLET.badRequest(response);
+            defaultServlet.badRequest(response);
         } catch (NotFoundException notFoundException) {
-            DEFAULT_SERVLET.notFoundException(response);
+            defaultServlet.notFoundException(response);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void execute(MySocket socket) throws IOException {
-        final HttpRequest httpRequest = new HttpRequest(socket.receive());
-        final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
-
-        service(httpRequest, httpResponse);
-
-        socket.send(httpResponse.asString());
-        socket.close();
     }
 }
