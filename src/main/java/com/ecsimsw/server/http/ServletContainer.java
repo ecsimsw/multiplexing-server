@@ -39,7 +39,12 @@ public class ServletContainer {
         }
     }
 
-    public void execute(MySocket socket) throws IOException {
+    public void executeInSync(MySocket socket) {
+        final RunnableHandler handler = new RunnableHandler(defaultServlet, container, socket);
+        handler.run();
+    }
+
+    public void execute(MySocket socket) {
         final RunnableHandler handler = new RunnableHandler(defaultServlet, container, socket);
         final Thread handleThread = new Thread(handler);
         handleThread.start();
@@ -90,6 +95,14 @@ class RunnableHandler implements Runnable {
             defaultServlet.notFoundException(response);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void setHandlingTime(Long time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.ecsimsw.server.http.servlet;
 
+import com.ecsimsw.server.http.exception.MethodNotAllowedException;
 import com.ecsimsw.server.http.request.HttpMethod;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
@@ -28,18 +29,18 @@ public abstract class Servlet {
     }
 
     public void doGet(HttpRequest httpRequest, HttpResponse httpResponse) {
-        throw new IllegalArgumentException("method not allowed");
+        throw new MethodNotAllowedException("method not allowed");
     }
 
     public void doPost(HttpRequest httpRequest, HttpResponse httpResponse) {
-        throw new IllegalArgumentException("method not allowed");
+        throw new MethodNotAllowedException("method not allowed");
     }
 
     public void doPut(HttpRequest httpRequest, HttpResponse httpResponse) {
-        throw new IllegalArgumentException("method not allowed");
+        throw new MethodNotAllowedException("method not allowed");
     }
 
     public void doDelete(HttpRequest httpRequest, HttpResponse httpResponse) {
-        throw new IllegalArgumentException("method not allowed");
+        throw new MethodNotAllowedException("method not allowed");
     }
 }
