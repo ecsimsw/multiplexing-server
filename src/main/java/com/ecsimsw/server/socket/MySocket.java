@@ -23,14 +23,12 @@ public class MySocket extends Socket implements Closeable {
         while (!(tempLine = in.readLine()).equals("")) {
             lines.add(tempLine);
         }
-//        System.out.println("[RECEIVE] : \n" + String.join("\n", lines));
         return String.join("\n", lines);
     }
 
     public void send(String message) throws IOException {
         out.write(message);
         out.flush();
-//        System.out.println("[SEND] : \n" + message);
     }
 
     @Override

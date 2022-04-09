@@ -1,6 +1,11 @@
 package com.ecsimsw.server;
 
 import com.ecsimsw.server.http.ServletContainer;
+import com.ecsimsw.server.http.exception.BadRequestException;
+import com.ecsimsw.server.http.exception.NotFoundException;
+import com.ecsimsw.server.http.request.HttpRequest;
+import com.ecsimsw.server.http.response.HttpResponse;
+import com.ecsimsw.server.http.servlet.Servlet;
 import com.ecsimsw.server.socket.MyServerSocket;
 import com.ecsimsw.server.socket.MySocket;
 
@@ -8,6 +13,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class MultiThreadWebServer implements WebServer {
 
@@ -29,7 +35,9 @@ public class MultiThreadWebServer implements WebServer {
         while (true) {
             try {
                 final MySocket socket = new MySocket(serverSocket.accept());
-                servletContainer.execute(socket);
+                final RunnableHandler handler = new RunnableHandler(servletContainer, socket);
+                final Thread thread = new Thread(handler);
+                thread.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -39,5 +47,31 @@ public class MultiThreadWebServer implements WebServer {
     @Override
     public void close() throws IOException {
         serverSocket.close();
+    }
+}
+
+class RunnableHandler implements Runnable{
+
+    private final ServletContainer container;
+    private final MySocket socket;
+
+    public RunnableHandler(ServletContainer container, MySocket socket) {
+        this.container = container;
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        try {
+            final HttpRequest httpRequest = new HttpRequest(socket.receive());
+            final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
+
+            container.execute(httpRequest, httpResponse);
+
+            socket.send(httpResponse.asString());
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

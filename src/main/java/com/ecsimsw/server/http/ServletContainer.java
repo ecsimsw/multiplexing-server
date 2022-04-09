@@ -7,9 +7,7 @@ import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.http.servlet.DefaultServlet;
 import com.ecsimsw.server.http.servlet.Servlet;
-import com.ecsimsw.server.socket.MySocket;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,17 +37,6 @@ public class ServletContainer {
         }
     }
 
-    public void executeInSync(MySocket socket) {
-        final RunnableHandler handler = new RunnableHandler(defaultServlet, container, socket);
-        handler.run();
-    }
-
-    public void execute(MySocket socket) {
-        final RunnableHandler handler = new RunnableHandler(defaultServlet, container, socket);
-        final Thread handleThread = new Thread(handler);
-        handleThread.start();
-    }
-
     public void execute(HttpRequest request, HttpResponse response) {
         try {
             final Servlet servlet = findServlet(request);
@@ -68,54 +55,5 @@ public class ServletContainer {
             return container.get(httpRequest.getPath());
         }
         return defaultServlet;
-    }
-}
-
-class RunnableHandler implements Runnable {
-
-    private final DefaultServlet defaultServlet;
-    private final Map<String, Servlet> container;
-    private final MySocket socket;
-
-    public RunnableHandler(DefaultServlet defaultServlet, Map<String, Servlet> container, MySocket socket) {
-        this.defaultServlet = defaultServlet;
-        this.container = container;
-        this.socket = socket;
-    }
-
-    @Override
-    public void run() {
-        try {
-            final HttpRequest httpRequest = new HttpRequest(socket.receive());
-            final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
-
-            execute(httpRequest, httpResponse);
-
-            socket.send(httpResponse.asString());
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void execute(HttpRequest httpRequest, HttpResponse httpResponse) {
-        try {
-            final Servlet servlet = container.getOrDefault(httpRequest.getPath(), defaultServlet);
-            servlet.doService(httpRequest, httpResponse);
-        } catch (BadRequestException badRequestException) {
-            defaultServlet.badRequest(httpResponse);
-        } catch (NotFoundException notFoundException) {
-            defaultServlet.notFoundException(httpResponse);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void setHandlingTime(Long time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-
-        }
     }
 }

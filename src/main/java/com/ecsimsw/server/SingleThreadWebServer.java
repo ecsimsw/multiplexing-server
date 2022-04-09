@@ -1,6 +1,8 @@
 package com.ecsimsw.server;
 
 import com.ecsimsw.server.http.ServletContainer;
+import com.ecsimsw.server.http.request.HttpRequest;
+import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.socket.MyServerSocket;
 import com.ecsimsw.server.socket.MySocket;
 
@@ -11,11 +13,11 @@ import java.net.ServerSocket;
 public class SingleThreadWebServer implements WebServer {
 
     private final ServerSocket serverSocket;
-    private final ServletContainer servletContainer;
+    private final ServletContainer container;
 
     public SingleThreadWebServer() throws IOException {
         this.serverSocket = MyServerSocket.init();
-        this.servletContainer = ServletContainer.init();
+        this.container = ServletContainer.init();
     }
 
     @Override
@@ -28,10 +30,24 @@ public class SingleThreadWebServer implements WebServer {
         while (true) {
             try {
                 final MySocket socket = new MySocket(serverSocket.accept());
-                servletContainer.executeInSync(socket);
+                handle(socket);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void handle(MySocket socket) {
+        try {
+            final HttpRequest httpRequest = new HttpRequest(socket.receive());
+            final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
+
+            container.execute(httpRequest, httpResponse);
+
+            socket.send(httpResponse.asString());
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

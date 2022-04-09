@@ -25,6 +25,7 @@ public class MultiPlexingServer implements WebServer {
         this.selector = Selector.open();
         this.serverSocket = ServerSocketChannel.open();
         this.servletContainer = ServletContainer.init();
+        System.out.println("[1. SOCKET-INIT] : init server socket");
     }
 
     @Override
@@ -32,6 +33,7 @@ public class MultiPlexingServer implements WebServer {
         this.serverSocket.bind(endpoint);
         this.serverSocket.configureBlocking(false);
         this.serverSocket.register(selector, SelectionKey.OP_ACCEPT);
+        System.out.println("[2. BIND/LISTEN] : " + endpoint);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class MultiPlexingServer implements WebServer {
         final ByteBuffer buffer = ByteBuffer.allocate(256);
 
         while (true) {
-            System.out.println("Waiting for select...");
+            System.out.println("[3. SELECT & ACCEPT] ");
             selector.select();
 
             final Set<SelectionKey> selectionKeys = selector.selectedKeys();
@@ -97,5 +99,6 @@ public class MultiPlexingServer implements WebServer {
     public void close() throws IOException {
         selector.close();
         serverSocket.close();
+        System.out.println("[5. SERVER-CLOSE] : close server socket");
     }
 }

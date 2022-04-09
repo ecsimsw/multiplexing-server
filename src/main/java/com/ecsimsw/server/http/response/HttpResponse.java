@@ -2,7 +2,7 @@ package com.ecsimsw.server.http.response;
 
 public class HttpResponse {
 
-    private String httpVersion;
+    private final String httpVersion;
     private StatusCode statusCode;
     private String body;
 
@@ -31,7 +31,7 @@ public class HttpResponse {
     }
 
     public String asString() {
-        final String firstLine = String.format("%s %s %s ", httpVersion, statusCode.getCode(), statusCode.getMessage());
+        final String firstLine = String.format("%s %s %s", httpVersion, statusCode.getCode(), statusCode.getMessage());
         final String contentTypeLine = "Content-Type: text/html;charset=utf-8 ";
         final String contentLengthLine = String.format("Content-Length: %s ", body.length());
         return String.join("\r\n",
