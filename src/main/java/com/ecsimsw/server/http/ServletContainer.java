@@ -49,6 +49,26 @@ public class ServletContainer {
         final Thread handleThread = new Thread(handler);
         handleThread.start();
     }
+
+    public void execute(HttpRequest request, HttpResponse response) {
+        try {
+            final Servlet servlet = findServlet(request);
+            servlet.doService(request, response);
+        } catch (BadRequestException badRequestException) {
+            defaultServlet.badRequest(response);
+        } catch (NotFoundException notFoundException) {
+            defaultServlet.notFoundException(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Servlet findServlet(HttpRequest httpRequest) {
+        if (container.containsKey(httpRequest.getPath())) {
+            return container.get(httpRequest.getPath());
+        }
+        return defaultServlet;
+    }
 }
 
 class RunnableHandler implements Runnable {
@@ -69,7 +89,7 @@ class RunnableHandler implements Runnable {
             final HttpRequest httpRequest = new HttpRequest(socket.receive());
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
 
-            service(httpRequest, httpResponse);
+            execute(httpRequest, httpResponse);
 
             socket.send(httpResponse.asString());
             socket.close();
@@ -78,21 +98,14 @@ class RunnableHandler implements Runnable {
         }
     }
 
-    private Servlet findServlet(HttpRequest httpRequest) {
-        if (container.containsKey(httpRequest.getPath())) {
-            return container.get(httpRequest.getPath());
-        }
-        return defaultServlet;
-    }
-
-    private void service(HttpRequest request, HttpResponse response) {
+    private void execute(HttpRequest httpRequest, HttpResponse httpResponse) {
         try {
-            final Servlet servlet = findServlet(request);
-            servlet.doService(request, response);
+            final Servlet servlet = container.getOrDefault(httpRequest.getPath(), defaultServlet);
+            servlet.doService(httpRequest, httpResponse);
         } catch (BadRequestException badRequestException) {
-            defaultServlet.badRequest(response);
+            defaultServlet.badRequest(httpResponse);
         } catch (NotFoundException notFoundException) {
-            defaultServlet.notFoundException(response);
+            defaultServlet.notFoundException(httpResponse);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,7 +1,9 @@
 package com.ecsimsw.server;
 
-import com.ecsimsw.server.config.ServerConfig;
+import com.ecsimsw.server.http.ServletContainer;
+import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -13,16 +15,27 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
 
-public class MultiPlexingServer {
+public class MultiPlexingServer implements WebServer {
 
+    private final ServletContainer servletContainer;
+    private final Selector selector;
+    private final ServerSocketChannel serverSocket;
+
+    public MultiPlexingServer() throws IOException {
+        this.selector = Selector.open();
+        this.serverSocket = ServerSocketChannel.open();
+        this.servletContainer = ServletContainer.init();
+    }
+
+    @Override
+    public void init(InetSocketAddress endpoint, int backlog) throws IOException {
+        this.serverSocket.bind(endpoint);
+        this.serverSocket.configureBlocking(false);
+        this.serverSocket.register(selector, SelectionKey.OP_ACCEPT);
+    }
+
+    @Override
     public void run() throws IOException {
-        final Selector selector = Selector.open();
-        final ServerSocketChannel serverSocket = ServerSocketChannel.open();
-
-        serverSocket.bind(new InetSocketAddress(ServerConfig.HOST_NAME, ServerConfig.PORT));
-        serverSocket.configureBlocking(false);
-        serverSocket.register(selector, SelectionKey.OP_ACCEPT);
-
         final ByteBuffer buffer = ByteBuffer.allocate(256);
 
         while (true) {
@@ -36,8 +49,13 @@ public class MultiPlexingServer {
                 final SelectionKey key = iterator.next();
                 iterator.remove();
 
-                if (key.isAcceptable()) accept(selector, serverSocket);
-                if (key.isReadable()) handle(buffer, key);
+                if (key.isAcceptable()) {
+                    accept(selector, serverSocket);
+                }
+
+                if (key.isReadable()) {
+                    handle(buffer, key);
+                }
             }
         }
     }
@@ -51,15 +69,33 @@ public class MultiPlexingServer {
     }
 
     private void handle(ByteBuffer buffer, SelectionKey key) throws IOException {
-        try (SocketChannel client = (SocketChannel) key.channel()) {
-            client.read(buffer);
-            buffer.flip();
+        System.out.println("Handle... ");
 
-            final HttpResponse httpResponse = new HttpResponse("Http/1.1");
-            httpResponse.ok("<html>hi</html>");
+        try (SocketChannel client = (SocketChannel) key.channel()) {
+            final HttpRequest httpRequest = new HttpRequest(readMessage(buffer, client));
+            final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
+
+            servletContainer.execute(httpRequest, httpResponse);
 
             client.write(StandardCharsets.UTF_8.encode(httpResponse.asString()));
             buffer.clear();
         }
+    }
+
+    private String readMessage(ByteBuffer buffer, SocketChannel client) throws IOException {
+        client.read(buffer);
+        buffer.flip();
+
+        String message = "";
+        while (buffer.hasRemaining()) {
+            message = StandardCharsets.UTF_8.decode(buffer).toString();
+        }
+        return message;
+    }
+
+    @Override
+    public void close() throws IOException {
+        selector.close();
+        serverSocket.close();
     }
 }
