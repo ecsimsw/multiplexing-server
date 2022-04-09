@@ -1,7 +1,6 @@
 package com.ecsimsw;
 
 import com.ecsimsw.server.MultiPlexingServer;
-import com.ecsimsw.server.MultiThreadWebServer;
 import com.ecsimsw.server.WebServer;
 
 import java.io.IOException;

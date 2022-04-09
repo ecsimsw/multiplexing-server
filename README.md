@@ -5,11 +5,11 @@ Make small web server with socket API
    - Socket API
    - Handling http request and response with http format
    - Servlet / Default servlet / Servlet Container
-- Support multiple concurrent requests 
-   - Multi-process socket or Multi-thread socket   
-   - Nonblocking server socket accept   
-- Make dynamic response with programming interface   
+- Make dynamic response with programming interface (Jsoup)
    - count user
+- Support multiple concurrent requests with multi-threading
+   - Multi-process socket or Multi-thread socket
+- Nonblocking server socket with NIO server socket channel
 
 ### Step1
 Make simple web server with socket API
