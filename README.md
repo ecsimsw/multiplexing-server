@@ -17,6 +17,7 @@ Make small web server with socket API
 
 ```
 docker pull grafana/k6
+cd k6
 docker run --rm -i grafana/k6 run --vus 10 --duration 30s - <script.js
 ```
 
