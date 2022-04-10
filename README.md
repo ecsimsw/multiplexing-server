@@ -44,7 +44,7 @@ try (WebServer webServer = new MultiplexingWebServer()) {}
 
 ## Quick start
 ```
-git clone https://github.com/ecsimsw/socket-server.git ecsimsw-webserver
+git clone https://github.com/ecsimsw/multiplexing-server-with-socketAPI.git
 cd ecsimsw-webserver
 ./gradlew run
 docker pull grafana/k6
