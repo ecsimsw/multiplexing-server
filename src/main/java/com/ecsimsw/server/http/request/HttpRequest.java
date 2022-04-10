@@ -15,7 +15,8 @@ public class HttpRequest {
             this.urlPath = UrlPath.of(firstLineParams[1]);
             this.httpVersion = firstLineParams[2].split("\r")[0];
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("[ERROR] : invalid http request format error");
+            e.printStackTrace();
+            throw new IllegalArgumentException("[ERROR] : invalid http request format error ");
         }
     }
 

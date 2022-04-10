@@ -9,6 +9,6 @@ public enum HttpMethod {
         return Arrays.stream(values())
                 .filter(it -> it.name().equalsIgnoreCase(method))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Invalid http method"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid http method : " + method));
     }
 }

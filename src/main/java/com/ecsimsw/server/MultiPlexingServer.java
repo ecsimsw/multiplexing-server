@@ -63,16 +63,12 @@ public class MultiPlexingServer implements WebServer {
     }
 
     private void accept(Selector selector, ServerSocketChannel serverSocket) throws IOException {
-        System.out.println("New client connected...");
-
         final SocketChannel client = serverSocket.accept();
         client.configureBlocking(false);
         client.register(selector, SelectionKey.OP_READ);
     }
 
     private void handle(ByteBuffer buffer, SelectionKey key) throws IOException {
-        System.out.println("Handle... ");
-
         try (SocketChannel client = (SocketChannel) key.channel()) {
             final HttpRequest httpRequest = new HttpRequest(readMessage(buffer, client));
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
@@ -81,6 +77,9 @@ public class MultiPlexingServer implements WebServer {
 
             client.write(StandardCharsets.UTF_8.encode(httpResponse.asString()));
             buffer.clear();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
