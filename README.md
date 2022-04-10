@@ -6,19 +6,10 @@ Make small web server with socket API
    - Handling http request and response with http format
    - Servlet / Default servlet / Servlet Container
 - Make dynamic response with programming interface (Jsoup)
-   - count user
 - Support multiple concurrent requests with multi-threading
    - Multi-process socket or Multi-thread socket
-- Nonblocking server socket with NIO server socket channel
-
-### Step1
-Make simple web server with socket API
-
-### Step2
-Make server multi-thread to handle concurrent request
-
-### Step3
-Feature nonblocking socket IO and compare with blocking/multi-thread server
+- Multiplexing server with java NIO 
+- Server test with K6
 
 ### Testing / K6
 [Installation](https://k6.io/docs/getting-started/installation/)

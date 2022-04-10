@@ -1,21 +1,20 @@
 package com.ecsimsw;
 
-import com.ecsimsw.server.MultiPlexingServer;
-import com.ecsimsw.server.MultiThreadWebServer;
-import com.ecsimsw.server.SingleThreadWebServer;
-import com.ecsimsw.server.WebServer;
+import static com.ecsimsw.server.config.ServerConfig.BACK_LOG;
+import static com.ecsimsw.server.config.ServerConfig.HOST_NAME;
+import static com.ecsimsw.server.config.ServerConfig.PORT;
 
+import com.ecsimsw.server.MultiplexingServer;
+import com.ecsimsw.server.WebServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-
-import static com.ecsimsw.server.config.ServerConfig.*;
 
 public class ServerApplication {
 
     public static void main(String[] args) {
         final InetSocketAddress endpoint = new InetSocketAddress(HOST_NAME, PORT);
 
-        try (WebServer webServer = new MultiThreadWebServer()) {
+        try (WebServer webServer = new MultiplexingServer()) {
             webServer.init(endpoint, BACK_LOG);
             webServer.run();
         } catch (IOException ioException) {

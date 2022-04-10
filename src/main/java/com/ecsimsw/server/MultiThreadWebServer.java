@@ -5,7 +5,6 @@ import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.socket.MyServerSocket;
 import com.ecsimsw.server.socket.MySocket;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;

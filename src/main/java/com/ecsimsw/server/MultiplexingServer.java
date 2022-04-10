@@ -3,7 +3,6 @@ package com.ecsimsw.server;
 import com.ecsimsw.server.http.ServletContainer;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -13,15 +12,14 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
-import java.util.Set;
 
-public class MultiPlexingServer implements WebServer {
+public class MultiplexingServer implements WebServer {
 
     private final ServletContainer servletContainer;
     private final Selector selector;
     private final ServerSocketChannel serverSocket;
 
-    public MultiPlexingServer() throws IOException {
+    public MultiplexingServer() throws IOException {
         this.selector = Selector.open();
         this.serverSocket = ServerSocketChannel.open();
         this.servletContainer = ServletContainer.init();
@@ -44,9 +42,7 @@ public class MultiPlexingServer implements WebServer {
             System.out.println("[3. SELECT & ACCEPT] ");
             selector.select();
 
-            final Set<SelectionKey> selectionKeys = selector.selectedKeys();
-            final Iterator<SelectionKey> iterator = selectionKeys.iterator();
-
+            final Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
             while (iterator.hasNext()) {
                 final SelectionKey key = iterator.next();
                 iterator.remove();

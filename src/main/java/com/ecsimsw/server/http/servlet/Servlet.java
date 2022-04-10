@@ -11,19 +11,19 @@ public abstract class Servlet {
     }
 
     public void doService(HttpRequest httpRequest, HttpResponse httpResponse) {
-        if(httpRequest.getMethod() == HttpMethod.GET) {
+        if (httpRequest.getMethod() == HttpMethod.GET) {
             doGet(httpRequest, httpResponse);
         }
 
-        if(httpRequest.getMethod() == HttpMethod.POST) {
+        if (httpRequest.getMethod() == HttpMethod.POST) {
             doPost(httpRequest, httpResponse);
         }
 
-        if(httpRequest.getMethod() == HttpMethod.PUT) {
+        if (httpRequest.getMethod() == HttpMethod.PUT) {
             doPut(httpRequest, httpResponse);
         }
 
-        if(httpRequest.getMethod() == HttpMethod.DELETE) {
+        if (httpRequest.getMethod() == HttpMethod.DELETE) {
             doDelete(httpRequest, httpResponse);
         }
     }

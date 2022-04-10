@@ -19,9 +19,9 @@ public class UrlPath {
             final String path = pathParams[0];
             final Map<String, String> queryParams = new HashMap<>();
 
-            if(pathParams.length > 1) {
+            if (pathParams.length > 1) {
                 final String queryParamsLine = pathParams[1];
-                for(String tuple : queryParamsLine.split("&")) {
+                for (String tuple : queryParamsLine.split("&")) {
                     final String[] keyValue = tuple.split("=");
                     final String key = keyValue[0];
                     final String value = keyValue[1];
@@ -30,7 +30,7 @@ public class UrlPath {
             }
             return new UrlPath(path, queryParams);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Invalid format of urlPath : "+ urlPath);
+            throw new IllegalArgumentException("Invalid format of urlPath : " + urlPath);
         }
     }
 

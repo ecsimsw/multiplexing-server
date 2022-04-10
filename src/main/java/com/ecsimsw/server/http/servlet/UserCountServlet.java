@@ -1,18 +1,17 @@
 package com.ecsimsw.server.http.servlet;
 
+import static com.ecsimsw.server.config.ServerConfig.USER_COUNT_FILE_PATH;
+
 import com.ecsimsw.server.database.InmemoryDB;
 import com.ecsimsw.server.http.exception.BadRequestException;
 import com.ecsimsw.server.http.exception.NotFoundException;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.http.response.ResponseFile;
+import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
-import java.io.IOException;
-
-import static com.ecsimsw.server.config.ServerConfig.USER_COUNT_FILE_PATH;
 
 public class UserCountServlet extends Servlet {
 
@@ -20,7 +19,7 @@ public class UserCountServlet extends Servlet {
     public void doGet(HttpRequest httpRequest, HttpResponse httpResponse) {
         try {
             final int number = InmemoryDB.select();
-            InmemoryDB.update(number+1);
+            InmemoryDB.update(number + 1);
             httpResponse.ok(viewResolve(number));
         } catch (IOException e) {
             e.printStackTrace();
