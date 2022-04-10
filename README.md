@@ -7,24 +7,24 @@ Report : `https://ecsimsw.tistory.com/entry/Web-server-with-socket-API`
 
 ## Steps
 - Handle basic http request and send requested files or do job   
-   - Using Socket API
+   - Using `Socket API`
    - Handling http request and response with http format
    - Servlet / Default servlet / Servlet Container
-   - Make dynamic response with Jsoup
+   - Make dynamic response with `Jsoup`
 - Support multiple concurrent requests with Multi-threading
-- `Multiplexing` server with `Selector - java NIO`
+- `Multiplexing` server with `Selector:Java NIO`
 - Server test with `K6`
 
 </br>
 
 ## How to use, What you can code
 1. Determine which requests to handle and how to handle by extending Servlet class
-- Extends servlet abstract class
-  [ex, `http/servlet/UserCountServlet`]
-- Map in servlet mappings in `config/ServerConfig`
+- Extends servlet abstract class    
+  [ex, http/servlet/UserCountServlet]    
+- Map in servlet mappings in `config/ServerConfig`    
   [ex, SERVLET_MAPPINGS.put("/{requestUrlPath}", {SERVLET_CLASS});]
 
-2. Change implementation of WebServer with `SingleThreadWebServer`, `MultiThreadWebServer`, `MultiplexingWebServer`
+2. Change implementation of WebServer with SingleThreadWebServer, MultiThreadWebServer, MultiplexingWebServer
 - Default webServer implementation is MultiplexingWebServer
 - Instance what you want, in ServerApplication
 ``` java
