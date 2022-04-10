@@ -13,13 +13,13 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-public class MultiplexingServer implements WebServer {
+public class MultiplexingWebServer implements WebServer {
 
     private final ServletContainer servletContainer;
     private final Selector selector;
     private final ServerSocketChannel serverSocket;
 
-    public MultiplexingServer() throws IOException {
+    public MultiplexingWebServer() throws IOException {
         this.selector = Selector.open();
         this.serverSocket = ServerSocketChannel.open();
         this.servletContainer = ServletContainer.init();

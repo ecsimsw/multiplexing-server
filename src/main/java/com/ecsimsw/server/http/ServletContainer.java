@@ -23,7 +23,7 @@ public class ServletContainer {
     public static ServletContainer init() {
         try {
             final Map<String, Servlet> container = new HashMap<>();
-            final Map<String, Class<?>> servletMappings = ServerConfig.servletMappings;
+            final Map<String, Class<?>> servletMappings = ServerConfig.SERVLET_MAPPINGS;
             for (String path : servletMappings.keySet()) {
                 final Class<?> aClass = servletMappings.get(path);
                 final Servlet servlet = (Servlet) aClass.getConstructor().newInstance();
