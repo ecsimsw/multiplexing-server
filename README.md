@@ -1,9 +1,11 @@
-### My socket server
+## My socket server
 Make small web server with socket API, from Single thread to Multi thread, Multiplexing server
 
 Report : `https://ecsimsw.tistory.com/entry/Web-server-with-socket-API`
 
-### Steps
+</br>
+
+## Steps
 - Handle basic http request and send requested files or do job   
    - Using Socket API
    - Handling http request and response with http format
@@ -13,7 +15,9 @@ Report : `https://ecsimsw.tistory.com/entry/Web-server-with-socket-API`
 - `Multiplexing` server with `Selector - java NIO`
 - Server test with `K6`
 
-### How to use, What you can code
+</br>
+
+## How to use, What you can code
 1. Determine which requests to handle and how to handle by extending Servlet class
 - Extends servlet abstract class
   [ex, `http/servlet/UserCountServlet`]
@@ -36,7 +40,9 @@ try (WebServer webServer = new MultiplexingWebServer()) {}
 - [PUT] http:://localhost:8080/userCount?number=5
 - [DELETE] http:://localhost:8080/userCount
 
-### Quick start
+</br>
+
+## Quick start
 ```
 git clone https://github.com/ecsimsw/socket-server.git ecsimsw-webserver
 cd ecsimsw-webserver
