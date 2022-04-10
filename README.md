@@ -1,6 +1,8 @@
 ### My socket server
 Make small web server with socket API, from Single thread to Multi thread, Multiplexing server
 
+Report : `https://ecsimsw.tistory.com/entry/Web-server-with-socket-API`
+
 ### Steps
 - Handle basic http request and send requested files or do job   
    - Using Socket API
@@ -8,8 +10,8 @@ Make small web server with socket API, from Single thread to Multi thread, Multi
    - Servlet / Default servlet / Servlet Container
    - Make dynamic response with Jsoup
 - Support multiple concurrent requests with Multi-threading
-- Multiplexing server with java NIO
-- Server test with K6
+- `Multiplexing` server with `Selector - java NIO`
+- Server test with `K6`
 
 ### How to use, What you can code
 1. Determine which requests to handle and how to handle by extending Servlet class
