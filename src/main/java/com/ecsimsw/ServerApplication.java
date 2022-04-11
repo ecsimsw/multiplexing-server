@@ -17,7 +17,7 @@ public class ServerApplication {
         try (WebServer webServer = new MultiplexingWebServer()) {
             webServer.init(endpoint, BACK_LOG);
             webServer.run();
-        } catch (IOException ioException) {
+        } catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
         }
     }

@@ -38,7 +38,6 @@ public class ServletContainer {
 
     public void execute(HttpRequest request, HttpResponse response) {
         try {
-            System.out.println("[4. RECV, SEND]");
             final Servlet servlet = findServlet(request);
             servlet.doService(request, response);
         } catch (BadRequestException badRequestException) {

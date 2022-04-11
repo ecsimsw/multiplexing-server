@@ -45,8 +45,6 @@ public class MultiplexingWebServer implements WebServer {
             final Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
             while (iterator.hasNext()) {
                 final SelectionKey key = iterator.next();
-                iterator.remove();
-
                 if (key.isAcceptable()) {
                     accept(selector, serverSocket);
                 }
@@ -54,6 +52,7 @@ public class MultiplexingWebServer implements WebServer {
                 if (key.isReadable()) {
                     handle(buffer, key);
                 }
+                iterator.remove();
             }
         }
     }
@@ -66,6 +65,8 @@ public class MultiplexingWebServer implements WebServer {
 
     private void handle(ByteBuffer buffer, SelectionKey key) throws IOException {
         try (SocketChannel client = (SocketChannel) key.channel()) {
+            System.out.println("[4. RECV, SEND]");
+
             final HttpRequest httpRequest = new HttpRequest(readMessage(buffer, client));
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
 
@@ -73,9 +74,10 @@ public class MultiplexingWebServer implements WebServer {
 
             client.write(StandardCharsets.UTF_8.encode(httpResponse.asString()));
             buffer.clear();
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+            buffer.clear();
         }
     }
 

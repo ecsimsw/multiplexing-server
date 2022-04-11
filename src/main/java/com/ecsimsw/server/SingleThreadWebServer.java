@@ -38,6 +38,8 @@ public class SingleThreadWebServer implements WebServer {
 
     private void handle(MySocket socket) {
         try {
+            System.out.println("[4. RECV, SEND]");
+
             final HttpRequest httpRequest = new HttpRequest(socket.receive());
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
 
