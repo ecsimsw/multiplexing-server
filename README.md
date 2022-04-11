@@ -48,5 +48,5 @@ git clone https://github.com/ecsimsw/multiplexing-server-with-socketAPI.git
 cd ecsimsw-webserver
 ./gradlew run
 docker pull grafana/k6
-docker run --rm -i grafana/k6 run --vus 10 --duration 30s - <k6/script.js
+docker run --rm -i grafana/k6 run - <k6/script.js
 ```
