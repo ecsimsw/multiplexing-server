@@ -4,6 +4,7 @@ import com.ecsimsw.server.MultiThreadWebServer;
 import com.ecsimsw.server.WebServer;
 import com.ecsimsw.server.http.servlet.IndexServlet;
 import com.ecsimsw.server.http.servlet.UserCountServlet;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ public class ServerConfig {
     public static final int BACK_LOG = 50;
 
     public static final Map<String, Class<?>> SERVLET_MAPPINGS = new HashMap<>();
+
     static {
         SERVLET_MAPPINGS.put("/", IndexServlet.class);
         SERVLET_MAPPINGS.put("/userCount", UserCountServlet.class);

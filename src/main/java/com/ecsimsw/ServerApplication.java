@@ -1,13 +1,12 @@
 package com.ecsimsw;
 
-import static com.ecsimsw.server.config.ServerConfig.BACK_LOG;
-import static com.ecsimsw.server.config.ServerConfig.HOST_NAME;
-import static com.ecsimsw.server.config.ServerConfig.PORT;
-
 import com.ecsimsw.server.MultiplexingWebServer;
 import com.ecsimsw.server.WebServer;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
+
+import static com.ecsimsw.server.config.ServerConfig.*;
 
 public class ServerApplication {
 

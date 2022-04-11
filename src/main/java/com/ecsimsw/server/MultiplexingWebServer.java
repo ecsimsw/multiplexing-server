@@ -3,6 +3,7 @@ package com.ecsimsw.server;
 import com.ecsimsw.server.http.ServletContainer;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -73,10 +74,10 @@ public class MultiplexingWebServer implements WebServer {
             servletContainer.execute(httpRequest, httpResponse);
 
             client.write(StandardCharsets.UTF_8.encode(httpResponse.asString()));
-            buffer.clear();
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+        } finally {
             buffer.clear();
         }
     }

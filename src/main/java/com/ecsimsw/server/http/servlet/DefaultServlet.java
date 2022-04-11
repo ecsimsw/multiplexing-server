@@ -1,14 +1,15 @@
 package com.ecsimsw.server.http.servlet;
 
-import static com.ecsimsw.server.config.ServerConfig.BAD_REQUEST_FILE_PATH;
-import static com.ecsimsw.server.config.ServerConfig.NOT_FOUND_FILE_PATH;
-
 import com.ecsimsw.server.http.exception.InternalServerException;
 import com.ecsimsw.server.http.exception.NotFoundException;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
 import com.ecsimsw.server.http.response.ResponseFile;
+
 import java.io.IOException;
+
+import static com.ecsimsw.server.config.ServerConfig.BAD_REQUEST_FILE_PATH;
+import static com.ecsimsw.server.config.ServerConfig.NOT_FOUND_FILE_PATH;
 
 public class DefaultServlet extends Servlet {
 
