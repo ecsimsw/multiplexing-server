@@ -32,7 +32,7 @@ public class MultiplexingWebServer implements WebServer {
         this.serverSocket.bind(endpoint);
         this.serverSocket.configureBlocking(false);
         this.serverSocket.register(selector, SelectionKey.OP_ACCEPT);
-        System.out.println("[2. BIND/LISTEN] : " + endpoint);
+        System.out.println("[2. BIND/LISTEN] : " + this.serverSocket.getLocalAddress());
     }
 
     @Override
