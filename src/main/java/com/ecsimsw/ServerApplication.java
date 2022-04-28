@@ -14,7 +14,7 @@ public class ServerApplication {
         final InetSocketAddress endpoint = new InetSocketAddress(HOST_NAME, PORT);
 
         try (WebServer webServer = new MultiplexingWebServer()) {
-            webServer.init(endpoint, BACK_LOG);
+            webServer.init(null, BACK_LOG);
             webServer.run();
         } catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
