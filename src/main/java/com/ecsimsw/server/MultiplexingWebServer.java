@@ -40,7 +40,7 @@ public class MultiplexingWebServer implements WebServer {
         final ByteBuffer buffer = ByteBuffer.allocate(256);
 
         while (true) {
-            System.out.println("[3. SELECT & ACCEPT] ");
+//            System.out.println("[3. SELECT & ACCEPT] ");
             selector.select();
 
             final Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
@@ -66,7 +66,7 @@ public class MultiplexingWebServer implements WebServer {
 
     private void handle(ByteBuffer buffer, SelectionKey key) throws IOException {
         try (SocketChannel client = (SocketChannel) key.channel()) {
-            System.out.println("[4. RECV, SEND]");
+//            System.out.println("[4. RECV, SEND]");
 
             final HttpRequest httpRequest = new HttpRequest(readMessage(buffer, client));
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
@@ -97,6 +97,6 @@ public class MultiplexingWebServer implements WebServer {
     public void close() throws IOException {
         selector.close();
         serverSocket.close();
-        System.out.println("[5. SERVER-CLOSE] : close server socket");
+//        System.out.println("[5. SERVER-CLOSE] : close server socket");
     }
 }

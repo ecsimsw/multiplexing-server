@@ -36,6 +36,6 @@ public class MySocket extends Socket implements Closeable {
         socket.close();
         in.close();
         out.close();
-        System.out.println("[CLOSE] : close socket");
+//        System.out.println("[CLOSE] : close socket");
     }
 }
