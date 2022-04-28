@@ -1,5 +1,6 @@
 package com.ecsimsw;
 
+import com.ecsimsw.server.MultiThreadWebServer;
 import com.ecsimsw.server.MultiplexingWebServer;
 import com.ecsimsw.server.WebServer;
 
@@ -13,7 +14,7 @@ public class ServerApplication {
     public static void main(String[] args) {
         final InetSocketAddress endpoint = new InetSocketAddress(HOST_NAME, PORT);
 
-        try (WebServer webServer = new MultiplexingWebServer()) {
+        try (WebServer webServer = new MultiThreadWebServer()) {
             webServer.init(endpoint, BACK_LOG);
             webServer.run();
         } catch (IOException | InterruptedException ioException) {
