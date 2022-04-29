@@ -24,6 +24,7 @@ public class MultiplexingWebServer implements WebServer {
         this.selector = Selector.open();
         this.serverSocket = ServerSocketChannel.open();
         this.servletContainer = ServletContainer.init();
+        System.out.println("[multiplexing]");
         System.out.println("[1. SOCKET-INIT] : init server socket");
     }
 
