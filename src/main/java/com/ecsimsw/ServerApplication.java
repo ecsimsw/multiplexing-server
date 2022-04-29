@@ -11,10 +11,10 @@ import static com.ecsimsw.server.config.ServerConfig.*;
 public class ServerApplication {
 
     public static void main(String[] args) {
-        final InetSocketAddress endpoint = new InetSocketAddress(HOST_NAME, PORT);
+        final InetSocketAddress endpoint = new InetSocketAddress(PORT);
 
         try (WebServer webServer = new MultiplexingWebServer()) {
-            webServer.init(null, BACK_LOG);
+            webServer.init(endpoint, BACK_LOG);
             webServer.run();
         } catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
