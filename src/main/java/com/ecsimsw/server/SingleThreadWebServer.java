@@ -18,6 +18,8 @@ public class SingleThreadWebServer implements WebServer {
     public SingleThreadWebServer() throws IOException {
         this.serverSocket = MyServerSocket.init();
         this.container = ServletContainer.init();
+
+        System.out.println("[single-thread]");
     }
 
     @Override
