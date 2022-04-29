@@ -24,7 +24,7 @@ public class MultiplexingWebServer implements WebServer {
         this.selector = Selector.open();
         this.serverSocket = ServerSocketChannel.open();
         this.servletContainer = ServletContainer.init();
-//        System.out.println("[1. SOCKET-INIT] : init server socket");
+        System.out.println("[1. SOCKET-INIT] : init server socket");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MultiplexingWebServer implements WebServer {
         this.serverSocket.bind(endpoint);
         this.serverSocket.configureBlocking(false);
         this.serverSocket.register(selector, SelectionKey.OP_ACCEPT);
-//        System.out.println("[2. BIND/LISTEN] : " + this.serverSocket.getLocalAddress());
+        System.out.println("[2. BIND/LISTEN] : " + this.serverSocket.getLocalAddress());
     }
 
     @Override
