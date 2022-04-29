@@ -58,7 +58,7 @@ class RunnableHandler implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("[4. RECV, SEND]");
+//            System.out.println("[4. RECV, SEND]");
 
             final HttpRequest httpRequest = new HttpRequest(socket.receive());
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());

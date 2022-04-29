@@ -12,7 +12,7 @@ import static com.ecsimsw.server.config.ServerConfig.*;
 public class ServerApplication {
 
     public static void main(String[] args) {
-        final InetSocketAddress endpoint = new InetSocketAddress(HOST_NAME, PORT);
+        final InetSocketAddress endpoint = new InetSocketAddress(PORT);
 
         try (WebServer webServer = new MultiThreadWebServer()) {
             webServer.init(endpoint, BACK_LOG);

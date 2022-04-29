@@ -25,7 +25,7 @@ public class MyServerSocket extends ServerSocket {
     @Override
     public Socket accept() throws IOException {
         final Socket accepted = super.accept();
-        System.out.println("[3. ACCEPT] " + accepted.getLocalAddress() + ":" + accepted.getPort());
+//        System.out.println("[3. ACCEPT] " + accepted.getLocalAddress() + ":" + accepted.getPort());
         return accepted;
     }
 
