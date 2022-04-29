@@ -18,6 +18,7 @@ public class MultiThreadWebServer implements WebServer {
     public MultiThreadWebServer() throws IOException {
         this.serverSocket = MyServerSocket.init();
         this.servletContainer = ServletContainer.init();
+        System.out.println("[multi-thread]");
     }
 
     @Override
