@@ -3,9 +3,7 @@ package com.ecsimsw.server;
 import com.ecsimsw.server.http.ServletContainer;
 import com.ecsimsw.server.http.request.HttpRequest;
 import com.ecsimsw.server.http.response.HttpResponse;
-import com.ecsimsw.server.socket.MyServerSocket;
 import com.ecsimsw.server.socket.MySocket;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -16,7 +14,7 @@ public class MultiThreadWebServer implements WebServer {
     private final ServletContainer servletContainer;
 
     public MultiThreadWebServer() throws IOException {
-        this.serverSocket = MyServerSocket.init();
+        this.serverSocket = new ServerSocket();
         this.servletContainer = ServletContainer.init();
     }
 
@@ -58,13 +56,9 @@ class RunnableHandler implements Runnable {
     @Override
     public void run() {
         try {
-//            System.out.println("[4. RECV, SEND]");
-
             final HttpRequest httpRequest = new HttpRequest(socket.receive());
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
-
             container.execute(httpRequest, httpResponse);
-
             socket.send(httpResponse.asString());
             socket.close();
         } catch (IOException e) {
