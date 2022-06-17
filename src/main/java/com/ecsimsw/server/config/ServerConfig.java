@@ -1,9 +1,9 @@
 package com.ecsimsw.server.config;
 
-import com.ecsimsw.server.MultiThreadWebServer;
-import com.ecsimsw.server.WebServer;
 import com.ecsimsw.server.http.servlet.IndexServlet;
+import com.ecsimsw.server.http.servlet.ServerInfoServlet;
 import com.ecsimsw.server.http.servlet.UserCountServlet;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +14,6 @@ public class ServerConfig {
     public static final String NOT_FOUND_FILE_PATH = "/not_found.html";
     public static final String USER_COUNT_FILE_PATH = "/user_count.html";
 
-    public static final String HOST_NAME = "localhost";
     public static final int PORT = 8080;
     public static final int BACK_LOG = 50;
 
@@ -23,7 +22,6 @@ public class ServerConfig {
     static {
         SERVLET_MAPPINGS.put("/", IndexServlet.class);
         SERVLET_MAPPINGS.put("/userCount", UserCountServlet.class);
+        SERVLET_MAPPINGS.put("/info", ServerInfoServlet.class);
     }
-
-    public static final Class<? extends WebServer> WEB_SERVER = MultiThreadWebServer.class;
 }

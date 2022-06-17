@@ -23,6 +23,8 @@ public class MultiplexingWebServer implements WebServer {
         this.selector = Selector.open();
         this.serverSocket = ServerSocketChannel.open();
         this.servletContainer = ServletContainer.init();
+        System.out.println("[multiplexing]");
+        System.out.println("[1. SOCKET-INIT] : init server socket");
     }
 
     @Override
@@ -30,6 +32,7 @@ public class MultiplexingWebServer implements WebServer {
         this.serverSocket.bind(endpoint);
         this.serverSocket.configureBlocking(false);
         this.serverSocket.register(selector, SelectionKey.OP_ACCEPT);
+        System.out.println("[2. BIND/LISTEN] : " + this.serverSocket.getLocalAddress());
     }
 
     @Override
@@ -37,6 +40,7 @@ public class MultiplexingWebServer implements WebServer {
         final ByteBuffer buffer = ByteBuffer.allocate(256);
 
         while (true) {
+            System.out.println("[3. SELECT & ACCEPT] ");
             selector.select();
 
             final Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
@@ -62,6 +66,7 @@ public class MultiplexingWebServer implements WebServer {
 
     private void handle(ByteBuffer buffer, SelectionKey key) throws IOException {
         try (SocketChannel client = (SocketChannel) key.channel()) {
+            System.out.println("[4. RECV, SEND]");
             final HttpRequest httpRequest = new HttpRequest(readMessage(buffer, client));
             final HttpResponse httpResponse = new HttpResponse(httpRequest.getHttpVersion());
             servletContainer.execute(httpRequest, httpResponse);
