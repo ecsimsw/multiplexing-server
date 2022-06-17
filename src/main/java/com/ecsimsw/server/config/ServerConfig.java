@@ -22,6 +22,11 @@ public class ServerConfig {
     static {
         SERVLET_MAPPINGS.put("/", IndexServlet.class);
         SERVLET_MAPPINGS.put("/userCount", UserCountServlet.class);
-        SERVLET_MAPPINGS.put("/info", ServerInfoServlet.class);
+        SERVLET_MAPPINGS.put("/info1", ServerInfoServlet.class);
+        SERVLET_MAPPINGS.put("/info2", ServerInfoServlet.class);
+        SERVLET_MAPPINGS.put("/info3", ServerInfoServlet.class);
+        SERVLET_MAPPINGS.put("/info4", ServerInfoServlet.class);
+        SERVLET_MAPPINGS.put("/info5", ServerInfoServlet.class);
+        SERVLET_MAPPINGS.put("/info6", ServerInfoServlet.class);
     }
 }
