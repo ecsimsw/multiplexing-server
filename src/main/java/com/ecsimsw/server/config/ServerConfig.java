@@ -1,5 +1,6 @@
 package com.ecsimsw.server.config;
 
+import com.ecsimsw.server.http.servlet.HtmlServlet;
 import com.ecsimsw.server.http.servlet.IndexServlet;
 import com.ecsimsw.server.http.servlet.ServerInfoServlet;
 import com.ecsimsw.server.http.servlet.UserCountServlet;
@@ -28,5 +29,6 @@ public class ServerConfig {
         SERVLET_MAPPINGS.put("/info4", ServerInfoServlet.class);
         SERVLET_MAPPINGS.put("/info5", ServerInfoServlet.class);
         SERVLET_MAPPINGS.put("/info6", ServerInfoServlet.class);
+        SERVLET_MAPPINGS.put("/html", HtmlServlet.class);
     }
 }
