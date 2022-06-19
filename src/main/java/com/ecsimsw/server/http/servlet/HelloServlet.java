@@ -7,9 +7,7 @@ import com.ecsimsw.server.http.response.ResponseFile;
 
 import java.io.IOException;
 
-import static com.ecsimsw.server.config.ServerConfig.INDEX_FILE_PATH;
-
-public class HtmlServlet extends Servlet {
+public class HelloServlet extends Servlet {
 
     @Override
     public void doGet(HttpRequest httpRequest, HttpResponse httpResponse) {
