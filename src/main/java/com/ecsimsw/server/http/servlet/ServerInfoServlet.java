@@ -12,12 +12,10 @@ public class ServerInfoServlet extends Servlet {
     @Override
     public void doGet(HttpRequest httpRequest, HttpResponse httpResponse) {
         try {
-            Thread.sleep(1000);
-
             final InetAddress local = InetAddress.getLocalHost();
             final String ip = local.getHostAddress();
             httpResponse.ok(ip);
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             throw new NotFoundException("no file");
         }
     }

@@ -28,7 +28,6 @@ public class ServerConfig {
         SERVLET_MAPPINGS.put("/info3", ServerInfoServlet.class);
         SERVLET_MAPPINGS.put("/info4", ServerInfoServlet.class);
         SERVLET_MAPPINGS.put("/info5", ServerInfoServlet.class);
-        SERVLET_MAPPINGS.put("/info6", ServerInfoServlet.class);
         SERVLET_MAPPINGS.put("/hello", HelloServlet.class);
     }
 }
